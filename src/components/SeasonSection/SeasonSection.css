@@ -1,0 +1,73 @@
+header{
+    text-align:center ;
+    background-color: #BBB5BD;  
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    
+}
+.info{
+    padding: 1rem;
+}
+.info>img{
+    width:25%;
+    border-radius: 0.4rem;
+}
+.season_li{
+
+}
+.season_li img{
+   width: 20%;
+}
+.season_li>div{
+    text-align: center;
+    padding: .8rem;
+    margin:10%;
+    background-color: aliceblue;
+    border-radius: 0.5rem;
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+}
+.individual_season_info{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.individual_season_info>img{
+  width:20%;
+  border-radius: 0.5rem;
+  
+}
+.episode_info{
+    margin: 10%;
+}
+.episode_info>div{
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    background-color: aliceblue;
+  text-align: center;
+}
+@media only screen and (max-width:768px){
+    .line-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+      }
+      .info>img{
+        width:50%;
+        border-radius: 0.4rem;
+    }
+
+    .season_li img{
+        width: 45%;
+     }
+     .individual_season_info>img{
+        width:50%
+      }
+}

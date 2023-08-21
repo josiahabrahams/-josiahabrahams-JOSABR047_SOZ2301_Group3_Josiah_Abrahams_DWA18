@@ -1,0 +1,44 @@
+
+  
+  .shows_list{
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+     padding: 0.7rem;
+     border: solid;
+     margin:2rem;
+     background: #BBB5BD;
+     color: white;
+     border-radius: 10px;
+     cursor: pointer;
+  }
+
+  .line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+  
+  .shows_list>img{
+    height: 50vh;
+    width: 40vw;
+  }
+  
+  
+  .date_section{
+    margin-right:1rem ;
+  }
+
+  .genre_holder{
+    background: #86A397;
+    display: flex;
+    flex-direction: column;
+    margin-right:1rem ;
+    align-items: center;
+    padding: 1rem;
+  }
+  .ul{
+    
+    padding-top:0.5rem;
+  }
