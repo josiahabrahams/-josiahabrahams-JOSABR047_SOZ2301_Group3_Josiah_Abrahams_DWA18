@@ -30,7 +30,6 @@ export const App = () => {
         const newData = data.map((mapObject) => ({
           ...mapObject,
           genres: getStringedGenre(mapObject.genres),
-          isFavourite: false // will be used to do conditional rendering
         }));
         
         setShowsPreview(newData);
@@ -179,7 +178,7 @@ export const App = () => {
   'News',
   'Kids and Family'
   ].map((genre,index)=><Button variant='outlined' key={index} id={genre} onClick={()=>filterByGenre(genre)}>{genre}</Button>)
-  console.log(audio)
+  
   return (
     <>
       
