@@ -1,5 +1,5 @@
 import './ShowCard.css'
-
+import {formalDate} from '../utils/utils.js'
 
 
 /**
@@ -56,35 +56,7 @@ export const getStringedGenre = (array) =>{
  * @returns 
  */
 export const ShowCard = (props) => {
-   /**
-    * this function returns a stringed date
-    * 
-    */
-   
-    const formalDate =(date)=>{
-   
-   
-    const months =[
-   'January', 
-   'febuary', 
-   'March' , 
-   'April', 
-   'May', 
-   'June', 
-   'July', 
-   'August', 
-   'September', 
-   'October', 
-   'November', 
-   'December'
-]
-    const day = new Date(date).getDay()
-    const year = new Date(date).getFullYear()
-    const month = new Date(date).getMonth()
-    
-    const sentence =` ${day} ${months[month]}, ${year} `
-    return sentence
-}
+
 
 const genreList = props.genres && props.genres.map((genre, index) => <li key={index}>{genre}</li>);
 
