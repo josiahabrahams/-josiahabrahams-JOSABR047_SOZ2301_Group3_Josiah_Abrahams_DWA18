@@ -1,9 +1,10 @@
-import { CssBaseline, IconButton, Skeleton,Button,Input } from '@mui/material'
+import { CssBaseline, IconButton, Button,Input } from '@mui/material'
 import { Search } from '@mui/icons-material'
 import React from 'react'
 import {SeasonSection} from './components/SeasonSection/SeasonSection.jsx'
 import {ShowCard,getStringedGenre} from './components/ShowCard/ShowCard'
 import closeImage from './images/close.png'
+import {Carousel} from './components/Carousel/Carousel.jsx'
 import './App.css'
 
 
@@ -26,20 +27,20 @@ export const App = () => {
         const response = await fetch('https://podcast-api.netlify.app/shows')
         const data = await response.json()
         
-        //adds new property from the server data (isFavorite)
+        //adds new stringed array of genre rather than using numbers
         const newData = data.map((mapObject) => ({
           ...mapObject,
           genres: getStringedGenre(mapObject.genres),
         }));
         
         setShowsPreview(newData);
-        
+        setTimeout(setIsLoading(false),1000)
       } catch (error) {
         console.log('error has occurred', error)
       }
     }
     getShowPreviewData()
-    setIsLoading(false)
+    
   }, [])
   
  
@@ -202,6 +203,7 @@ export const App = () => {
       </header> 
       
        { isLoading && <div>Loading...</div>}
+       {!isFiltered && !isLoading && <Carousel showsPreview={showsPreview}/>}
        {isFiltered && <>
        <Button variant='outlined' onClick={aToZ}>A-Z</Button>
        <Button variant='outlined' onClick={zToA}>Z-A</Button>

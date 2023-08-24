@@ -27,6 +27,7 @@ export const SeasonSection =(props)=>{
     const [favouritesData, setFavouritesData] = React.useState([{}])
     const [UpdateFavourites,setUpdateFavourites] = React.useState(false)
     const [isFavouriteSectionSelected, setIsFavouriteSectionSelected] = React.useState(false)
+    const [isLoading, setIsLoading] = React.useState(true)
     if(!props.getSeasonId){
       throw new Error('props.get season does not exist')
     }
@@ -62,6 +63,7 @@ export const SeasonSection =(props)=>{
             };
       
             setSeasonData(transformedData);
+            setTimeout(setIsLoading(false),1000)
           } catch (error) {
             console.log('failed to get resources please refresh or come back later');
           }
@@ -211,6 +213,7 @@ export const SeasonSection =(props)=>{
 })
     return(
         <>
+        
       {  !isFavouriteSectionSelected &&
       <>
         <header>
@@ -225,6 +228,7 @@ export const SeasonSection =(props)=>{
             </div>
             
         </header>
+        {isLoading && <p>Loading...</p>}
        {!individualSeasonSelected && <ol className='season_ol'>
           {seasonList}
         </ol>}
