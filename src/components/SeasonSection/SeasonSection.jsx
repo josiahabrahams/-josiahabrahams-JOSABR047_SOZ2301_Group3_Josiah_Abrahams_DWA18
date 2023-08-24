@@ -122,7 +122,39 @@ export const SeasonSection =(props)=>{
       }
      
      }
-
+    
+      /**
+     * will order {@link favouritesData}  show titles from a to z
+     */
+    const aToZ=()=>{
+      const sorted = [...favouritesData].toSorted((a,b)=>a.showTitle.localeCompare(b.showTitle))
+      setFavouritesData(sorted)
+      
+    }
+     /**
+     * will order {@link favouritesData} show titles from z to a
+     */
+    const zToA=()=>{
+      const sorted = [...favouritesData].toSorted((a,b)=>b.showTitle.localeCompare(a.showTitle))
+      setFavouritesData(sorted)
+      
+    }
+        /**
+     * orders function from oldest date to latest
+     * @param {string} string - is the  shows update date
+     */
+    const orderToOldest=()=>{
+     const sorted = [...favouritesData].toSorted((a,b)=>new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+     setFavouritesData(sorted)
+   }
+    /**
+     * orders function from latest date to oldest
+     * @param {string} string - is the  shows update date
+     */
+   const orderToYoungest = () =>{
+    const sorted = [...favouritesData].toSorted((a,b)=>new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    setFavouritesData(sorted)
+   }
     const seasonList = seasonData.seasons && seasonData.seasons.map(( season,index) => {
        return(
         <li key={index} className='season_li'>
@@ -156,12 +188,20 @@ export const SeasonSection =(props)=>{
   });
     
   const favouriteEpisodeList = favouritesData.map((favouriteEpisode, index)=> {
+    const getTime =(date)=>{
+     const minutes = new Date(date).getMinutes()
+     const hours = new Date(date).getHours()
+     const sentence = `${hours<=9 ? `0${hours}`: hours}:${minutes<=9 ? `0${minutes}`: minutes}`
+     return sentence
+
+     
+    }
   return ( 
  <div key={index} className='favourite_episode'>
+   <h3>Show: {favouriteEpisode.showTitle}</h3> 
+   <h4>Season: {favouriteEpisode.seasonTitle}</h4>
    <h4>Episode: {favouriteEpisode.title}, episode {favouriteEpisode.episode}</h4>
-   <h4>Show: {favouriteEpisode.showTitle}</h4>
-    <h4>Season: {favouriteEpisode.seasonTitle}</h4>
-    <h5>selected as favourite: {formalDate(favouriteEpisode.created_at)}</h5>
+    <h5>selected as favourite: {formalDate(favouriteEpisode.created_at)} at {getTime(favouriteEpisode.created_at)}</h5>
     <div>
     <p className='line-clamp'>{favouriteEpisode.description1}</p>
      <IconButton onClick={()=>removeFavourite(favouriteEpisode.id)}><Delete/></IconButton>
@@ -212,6 +252,10 @@ export const SeasonSection =(props)=>{
            <h1>Favourite Episodes</h1>
           </div>
          </header>
+         <Button variant='outlined' style ={{marginLeft:'1rem'}} onClick={aToZ}>A-Z</Button>
+         <Button variant='outlined'onClick={zToA}>Z-A</Button>
+         <Button variant='outlined'  onClick={orderToYoungest}>Recent</Button>
+         <Button variant='outlined'onClick={orderToOldest}>Oldest</Button>
         { favouriteEpisodeList}
          </>
          }
