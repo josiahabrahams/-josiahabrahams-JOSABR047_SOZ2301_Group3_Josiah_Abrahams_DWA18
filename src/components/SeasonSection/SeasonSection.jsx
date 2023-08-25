@@ -21,16 +21,24 @@ import {supabase, formalDate} from'../utils/utils.js'
  */
 
 export const SeasonSection =(props)=>{
+    /**is the individual show data  */
     const [seasonData, setSeasonData] = React.useState([{}])
+    /**is the individual season data  */
     const [individualSeason, setIndividualSeason] = React.useState([{}])
+    /** boolean that renders between seasonData and individual season */
     const [individualSeasonSelected, setIndividualSeasonSelected] = React.useState(false)
+    /**contains the data from the subabase table used to show the user its favourites*/
     const [favouritesData, setFavouritesData] = React.useState([{}])
+    /**allows the favourites to update its data so it is accurate */
     const [UpdateFavourites,setUpdateFavourites] = React.useState(false)
+    /**allows user to switch to favourite view */
     const [isFavouriteSectionSelected, setIsFavouriteSectionSelected] = React.useState(false)
+    /**is loading state whilst data is being fetched */
     const [isLoading, setIsLoading] = React.useState(true)
     if(!props.getSeasonId){
       throw new Error('props.get season does not exist')
     }
+    /**used to fetch the data from the subabase table favourite */
     useEffect(()=>{
        const getSupaBaseData = async() =>{
         try {
@@ -44,13 +52,13 @@ export const SeasonSection =(props)=>{
        }
        getSupaBaseData()
     },[UpdateFavourites])
-    
+    /**used to fetch data for individual show rather than all 51 */
     useEffect(() => {
         const getSeason = async () => {
           try {
             const response = await fetch(`https://podcast-api.netlify.app/id/${props.getSeasonId}`);
             const data = await response.json();
-            
+            /** adds a boolean property 'isFavourite' to allow us to add some thing to the favourite */
             const transformedData = {
               ...data,
               seasons: data.seasons.map((season) => ({
@@ -71,9 +79,9 @@ export const SeasonSection =(props)=>{
       
         getSeason();
       }, [props.getSeasonId]);
-      
+      /**adds data to the suabase table  */
       const toggleIsFaviorite = async (episodeId, title,episodeNum,showTitle,description,seasonTitle) => {
-        setSeasonData((prevSeasonData) => {
+        setSeasonData((prevSeasonData) => {//swithces the is favourite property to to the opposite state
           const newSeasonData = { ...prevSeasonData };
           const episode = newSeasonData.seasons[individualSeason.season - 1].episodes[episodeId];
           episode.isFavourite = !episode.isFavourite;
@@ -105,13 +113,13 @@ export const SeasonSection =(props)=>{
 
       };
   
-    
+    /**gets individualSeason  data from seasonData  */
      const getIndividualSeason =(id)=>{
         const sorted = seasonData.seasons[id-1]
         setIndividualSeason(sorted)
         setIndividualSeasonSelected(true)
      }
-    
+    /**removes row from the subabase table the id is the subase unique id given by default */
      const removeFavourite = async(id)=>{
       try {
         const { data, error } = await supabase
@@ -157,6 +165,7 @@ export const SeasonSection =(props)=>{
     const sorted = [...favouritesData].toSorted((a,b)=>new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
     setFavouritesData(sorted)
    }
+    /**is the list of seasons from the show */
     const seasonList = seasonData.seasons && seasonData.seasons.map(( season,index) => {
        return(
         <li key={index} className='season_li'>
@@ -171,7 +180,7 @@ export const SeasonSection =(props)=>{
         </li>
        )
     });
-    
+  /**contaians jsx that show a list of episodes when an idividual season is selected */
   const episodeList = individualSeason.episodes && individualSeason.episodes.map((episode, index) => {
     return (
       <li key={index} className='episode_info'>
@@ -188,7 +197,7 @@ export const SeasonSection =(props)=>{
       </li>
     );
   });
-    
+    /**jsx containing the list of favourites data from the subabase {@link favouritesData} */
   const favouriteEpisodeList = favouritesData.map((favouriteEpisode, index)=> {
     const getTime =(date)=>{
      const minutes = new Date(date).getMinutes()

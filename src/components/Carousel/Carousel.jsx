@@ -5,8 +5,26 @@ import 'swiper/css'
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-export const Carousel = (props) => {
+/**
+ * @typedef {Object} ShowsPreviewData
+ * @prop {string} title - title of show
+ * @prop {string} image - image of show
+ * 
+ */
  
+ /**
+  * @typedef {Object} ShowsPreview
+  * @prop {ShowsPreviewData} showsPreview
+  * 
+  */
+/**
+ * this component is the carousel piece that use the data from the api to produce five randaom slide 
+ * pieces that contain the picture and image
+ * @param {ShowsPreview} props 
+ * @returns 
+ */
+export const Carousel = (props) => {
+  /** produces random numbers used to select 5 random show from the the object {@link showsPreview} in the App component */
   const randomNumber =()=> Math.floor(Math.random()*51)
    const slide1 = props.showsPreview[randomNumber()]
    const slide2 = props.showsPreview[randomNumber()]

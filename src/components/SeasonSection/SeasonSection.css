@@ -30,6 +30,7 @@ header{
      display: flex;
      justify-content: space-around;
      align-items: center;
+     cursor: pointer;
 }
 .individual_season_info{
     

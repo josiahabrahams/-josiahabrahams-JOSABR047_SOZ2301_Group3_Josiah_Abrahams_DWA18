@@ -54,6 +54,12 @@ form{
   width: 5%;
   cursor: pointer;
 }
+footer{
+  text-align: center;
+  padding: 2rem;
+  background-color: #86A397;
+  margin: 0 ;
+}
 @media only screen and (max-width:768px){
   h1{
     font-size: 1rem;

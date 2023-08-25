@@ -50,6 +50,7 @@ export const App = () => {
   const goBackToShowList = () => setIsSeasonSelected(false)
  /**
   * switches from preview shows list interface to the season user user interface
+  * using the individual show id to select which season gets selected
   */
   const fetchSeasonId = (id) =>{
      setGetSeasonId(id)
@@ -112,16 +113,16 @@ export const App = () => {
     const sorted = [...filteredShows].toSorted((a,b)=>new Date(b.updated).getTime() - new Date(a.updated).getTime())
     setFilteredShows(sorted)
    }
-
+  /**grabs audio file to play */
    const toggleIsPlaying=(audioFile)=>{
     setIsPlaying(true)
     
     setAudio(audioFile)
     
    }
-
+   /**closes audio panel */
    const closeAudio =()=>{
-    const beforeClose = alert('your are about to close audio')
+     alert('your are about to close audio')
     
     setIsPlaying(false)
    }
@@ -149,11 +150,11 @@ export const App = () => {
   /**
     * turns {@link showPreview}  into usable jsx
    */
-  const showPreviewList = showsPreview.map((show)=>{
+  const showPreviewList = showsPreview.map((show,index)=>{
  
     return( 
             <ShowCard 
-            key = {show.id}
+            key = {index}
         description ={show.description} 
         genres={show.genres}
         id = {show.id}
@@ -219,10 +220,11 @@ export const App = () => {
           or search again.
         </h3>}
         {isFiltered ? filterdShowList: showPreviewList}
-       <footer> 
-        <a href="https://www.flaticon.com/free-icons/close" title="close icons">Close icons created by inkubators - Flaticon</a>
-       </footer>
+      
       </div>
+      <footer> 
+        <a href="https://www.flaticon.com/free-icons/close" title="close icons">Close icons created by inkubators - Flaticon</a>
+      </footer>
       </>}
       {isSeasonSelected && <SeasonSection getSeasonId={getSeasonId} toggleIsPlaying={toggleIsPlaying} goBackToShowList={goBackToShowList} />}
       {isPlaying && 
